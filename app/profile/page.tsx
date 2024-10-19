@@ -19,6 +19,8 @@ import {
 import { useRouter } from "next/navigation";
 import { IUSer } from "@/interfaces";
 import Header from "@/components/header/header";
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
 
 export default function UserProfile() {
   const [user, setUser] = useState<IUSer | null>(null);
@@ -26,6 +28,7 @@ export default function UserProfile() {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState("");
   const router = useRouter();
+  const { toast } = useToast();
 
   useEffect(() => {
     const storedPhoneNumber = localStorage.getItem("phoneNumber");
@@ -52,8 +55,20 @@ export default function UserProfile() {
       }
       setUser(data.user as IUSer);
       setError(null);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          title: "Error",
+          description: error.response?.data?.message || "Failed to sign in",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "An unexpected error occurred",
+          variant: "destructive",
+        });
+      }
       setError("Failed to load user data");
       localStorage.removeItem("phoneNumber");
       router.push("/signin");
@@ -79,8 +94,37 @@ export default function UserProfile() {
       }
     } catch (error: unknown) {
       setError("Failed to generate code");
+      if (axios.isAxiosError(error)) {
+        toast({
+          title: "Error",
+          description: error.response?.data?.message || "Failed to sign in",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "An unexpected error occurred",
+          variant: "destructive",
+        });
+      }
     }
   };
+  /**catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          title: "Error",
+          description: error.response?.data?.message || "Failed to sign in",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "An unexpected error occurred",
+          variant: "destructive",
+        });
+      }
+    } 
+      setError("Failed to generate code",);*/
 
   const copyCode = async () => {
     if (user?.code) {
