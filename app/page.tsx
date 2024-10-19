@@ -63,7 +63,7 @@ const AIDietitianLandingPage = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span>Lifestyle Recommendations</span>
+                  <span>Expert Consultations</span>
                 </div>
               </div>
               <div className="flex space-x-4">
