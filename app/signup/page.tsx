@@ -94,7 +94,7 @@ const SignUpForm: React.FC = () => {
       };
 
       const response = await axios.post(
-        "http://localhost:30299/api/create-user",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/create-user`,
         payload
       );
       toast({ title: "Success", description: response.data.message, variant: "default" });

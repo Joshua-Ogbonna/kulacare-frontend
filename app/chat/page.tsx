@@ -86,10 +86,13 @@ const NutritionChat = () => {
     try {
       setIsLoading(true);
 
-      const { data } = await axios.post("http://localhost:30299/api/message", {
-        message,
-        phoneNumber,
-      });
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/message`,
+        {
+          message,
+          phoneNumber,
+        }
+      );
 
       // Handle the AI response
       const aiResponse = data?.data;
@@ -143,7 +146,7 @@ const NutritionChat = () => {
 
     try {
       const { data } = await axios.get(
-        `http://localhost:30299/api/messages/${phoneNumber}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/messages/${phoneNumber}`
       );
       if (data?.chats && data.chats.length > 0 && data.chats[0].messages) {
         const fetchedMessages: Message[] = data.chats[0].messages.map(

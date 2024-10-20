@@ -39,14 +39,17 @@ const SignInForm: React.FC = () => {
       });
       return;
     }
-    
+
     try {
       setIsSubmitting(true);
 
       // Replace this with your actual sign-in API endpoint
-      const response = await axios.post("http://localhost:30299/api/signin", {
-        phoneNumber,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/signin`,
+        {
+          phoneNumber,
+        }
+      );
 
       if (response.data.success) {
         toast({ title: "Success", description: "Signed in successfully" });

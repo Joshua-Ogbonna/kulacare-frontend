@@ -44,7 +44,7 @@ export default function UserProfile() {
   const fetchUserData = async (phoneNumber: string) => {
     try {
       const response = await fetch(
-        `http://localhost:30299/api/user/${phoneNumber}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/user/${phoneNumber}`
       );
       const data = await response.json();
 
@@ -79,13 +79,16 @@ export default function UserProfile() {
 
   const generateCode = async () => {
     try {
-      const response = await fetch("http://localhost:30299/api/generate-code", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: user?.id }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/generate-code`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: user?.id }),
+        }
+      );
       const data = await response.json();
 
       if (data.code) {
