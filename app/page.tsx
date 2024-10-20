@@ -16,7 +16,7 @@ const AIDietitianLandingPage = () => {
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 md:pr-12">
               <h1 className="text-5xl font-bold leading-tight mb-6">
-                Take Back Control of Your Health
+              Your Personal Health Journey, Simplified and Empowered
               </h1>
               <p className="text-xl text-gray-600 mb-6">
                 Reverse type 2 diabetes and lose weight sustainably with your
@@ -73,12 +73,12 @@ const AIDietitianLandingPage = () => {
                 >
                   Start Your Journey
                 </Button>
-                <Button
+                {/* <Button
                   variant="outline"
                   className="text-teal-600 border-teal-600 hover:bg-teal-50"
                 >
                   Learn More
-                </Button>
+                </Button> */}
               </div>
             </div>
             <div className="md:w-1/2 mt-12 md:mt-0">
